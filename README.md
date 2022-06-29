@@ -29,3 +29,8 @@ These main contracts derive from the following *.sol:
 npx hardhat deploy --network telostest
 npx hardhat deploy-royalty --network telostest
 ```
+
+# Contracts
+
+Testnet factory contract `0xE1F6Aefd7791C9001f02a452c66DCF8d56707386`
+Testnet royalty contract `0x931Fe8B2F45247ecd4c191F4D40124b95d547f12`
