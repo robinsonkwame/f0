@@ -20,6 +20,16 @@ task("deploy", "deploys the contract", async (args, hre) => {
   await fs.promises.writeFile(path.resolve(__dirname, `./deployments/${hre.network.name}.json`), JSON.stringify({ address: factory.address }))
   return factory;
 })
+task("deploy-royalty", "deploys the royalty contract", async (args, hre) => {
+  const [deployer] = await hre.ethers.getSigners();
+  let Royalty = await hre.ethers.getContractFactory('Royalty');
+  let royalty = await Royalty.deploy();
+  await royalty.deployed();
+  console.log("Royalty address", royalty.address);
+  await fs.promises.mkdir(path.resolve(__dirname, "./deployments"), { recursive: true }).catch((e) => {})
+  await fs.promises.writeFile(path.resolve(__dirname, `./deployments/${hre.network.name}-royalty.json`), JSON.stringify({ address: royalty.address }))
+  return royalty;
+})
 task("v", "verify on etherscan", async (args, hre) => {
   console.log("x")
   const FACTORY_ABI = require(path.resolve(__dirname, "./abi/contracts/Factory.sol/Factory.json"));
@@ -76,7 +86,8 @@ module.exports = {
       allowUnlimitedContractSize: true,
       //timeout: 1800000
     },
-    telos_testnet: {
+    telostest: {
+      name: "telostest",
       url: 'https://testnet.telos.net/evm',
       chainId: 41,
       from: "0xbd61cb6516CC66a1830FF4294e28F55Ed20E6FE6",
