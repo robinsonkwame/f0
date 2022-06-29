@@ -7,6 +7,7 @@ require('hardhat-abi-exporter');
 require("hardhat-gas-reporter");
 require('hardhat-contract-sizer');
 require("@nomiclabs/hardhat-etherscan");
+const default_hardhat_private_key = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
 const fs = require('fs')
 const path = require('path')
 task("deploy", "deploys the contract", async (args, hre) => {
@@ -75,12 +76,19 @@ module.exports = {
       allowUnlimitedContractSize: true,
       //timeout: 1800000
     },
+    telos_testnet: {
+      url: 'https://testnet.telos.net/evm',
+      chainId: 41,
+      from: "0xbd61cb6516CC66a1830FF4294e28F55Ed20E6FE6",
+      timeout: 1000 * 60 * 60 * 24, // 1 day
+      accounts: [process.env.TELOS_TESTNET_PRIVATE_KEY || default_hardhat_private_key],
+    },    
     rinkeby: {
       //gasPrice: 32000000000,
       //gasPrice: 133000000000,
-      url: process.env.RINKEBY,
+      url: process.env.RINKEBY || "https://eth-rinkeby.alchemyapi.io/v2/your-api-key",
       timeout: 1000 * 60 * 60 * 24, // 1 day
-      accounts: [process.env.RINKEBY_PRIVATE_KEY],
+      accounts: [process.env.RINKEBY_PRIVATE_KEY || default_hardhat_private_key],
     },
     mainnet: {
       //gasPrice: 60000000000,
@@ -88,8 +96,8 @@ module.exports = {
       //gasPrice: 80000000000,
       //gasPrice: 96000000000,
       timeout: 1000 * 60 * 60 * 24, // 1 day
-      url: process.env.MAINNET,
-      accounts: [process.env.MAINNET_PRIVATE_KEY],
+      url: process.env.MAINNET || "https://eth-mainnet.alchemyapi.io/v2/YOUR-API-KEY",
+      accounts: [process.env.MAINNET_PRIVATE_KEY || default_hardhat_private_key],
     }
   },
   etherscan: {
