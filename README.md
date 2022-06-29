@@ -16,6 +16,7 @@ There are 2 main contracts that derive from F0.sol:
 2. [contracts/Royalty.sol](contracts/Royalty.sol): The programmable royalty contract used by the factory contract
 
 These main contracts derive from the following *.sol:
+
 3. [contracts/F0.sol](contracts/F0.sol): The NFT contract
 4. [contracts/F0ERC721Upgradeable.sol](contracts/F0ERC721Upgradeable.sol)
     - F0 inherits from this file instead of [@openzeppelin/ERC721Upgradeable.sol](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/master/contracts/token/ERC721/ERC721Upgradeable.sol).
